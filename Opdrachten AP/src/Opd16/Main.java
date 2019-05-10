@@ -6,6 +6,5 @@ public class Main {
         System.out.println(MoneyUtils.amount("USD", 3.1431592, 1));
         System.out.println("Count runtimes: "+ MoneyUtils.getCount());
     }
-
 }
 
