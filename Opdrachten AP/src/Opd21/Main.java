@@ -1,6 +1,4 @@
 package Opd21;
-import javafx.application.Application;
-import javafx.stage.Stage;
 
 public class Main{
     public static void main(String[] arg) {
@@ -9,7 +7,6 @@ public class Main{
         // Lijn object maken met 2 punten
         Line line = new Line(point1, point2);
 
-        // Applicatie laden met argumenten x en y van beide punten en ratio.
         // dit ophalen van x en y had ik ook in de applicatie kunnen plaatsen.
         int x0 = line.getBegin().getX();
         int x1 = line.getEnd().getX();

@@ -20,6 +20,7 @@ public class Grid extends Application {
         Grid.x1 = x1;
         Grid.y1 = y1;
         Grid.ratio = ratio;
+        // ik roep hier via launch, een static method van application, de functie start op.
         Application.launch(Grid.class);
     }
 
