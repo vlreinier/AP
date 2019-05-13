@@ -9,13 +9,16 @@ import javafx.stage.Stage;
 
 // ik heb gekozen voor het gebruik van JavaFX application voor de GUI. Ik extend hier de class Application
 public class Grid extends Application {
-    private static Line line;
+    private static double x0,x1,y0,y1;
     private static double ratio;
 
     // Ik had na even zoeken deze truck gevonden om de applicatie via een statische functie met argumenten
     // line en ratio op te roepen
-    public static void launchGrid(Line line, double ratio){
-        Grid.line = line;
+    public static void launchGrid(double x0, double y0, double x1, double y1, double ratio){
+        Grid.x0 = x0;
+        Grid.y0 = y0;
+        Grid.x1 = x1;
+        Grid.y1 = y1;
         Grid.ratio = ratio;
         Application.launch(Grid.class);
     }
@@ -24,12 +27,6 @@ public class Grid extends Application {
     // Hier wordt stage, de GUI opgezet en getoond
     @Override
     public void start(Stage stage) {
-        // Ophalen x en y van punten lijn
-        int x0 = line.getBegin().getX();
-        int x1 = line.getEnd().getX();
-        int y0 = line.getBegin().getY();
-        int y1 = line.getEnd().getY();
-
         stage.setTitle("Point Plotter"); // titel GUI
         // opzetten grid met lengte x en y, gebruik makend van class NumberAxis
         final NumberAxis xAxis = new NumberAxis(-15, 15, 1);
