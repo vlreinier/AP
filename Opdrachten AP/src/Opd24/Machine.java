@@ -10,11 +10,12 @@ public class Machine {
         output.add(node.getName()); // add first starting node to output
 
         for (int i = 0; i < sequence.length(); i++){
-            Node nextNode = node.getNextNode(sequence.charAt(i)); // returns node with corresponding char as relation
+            Character character = sequence.charAt(i);
+            Node nextNode = node.getNextNode(character); // returns next node with corresponding char as relation
 
             if (nextNode == null){ // if no relation is available getNextNode returns null
                 output.add("X");
-                System.out.println("Er is geen relatie naar een volgende node gevonden voor karakter " + sequence.charAt(i));
+                System.out.println("Er is geen relatie naar een volgende node gevonden voor karakter " + character);
                 break; // stop program if next relation can not be found
             } else {
                 output.add(nextNode.getName()); // add to output list
@@ -22,7 +23,7 @@ public class Machine {
 
             node = nextNode; // set current next node as starting node for next iteration
         }
-        System.out.println(output);
 
+        System.out.println(output);
     }
 }

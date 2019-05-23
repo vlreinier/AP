@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Node {
     String name;
-    Map<Node,Character> map = new HashMap<>(); // using python dictionary like structure for saving relations
+    Map<Node,Character> map = new HashMap<>();
 
     public Node(String name) {
         this.name = name;

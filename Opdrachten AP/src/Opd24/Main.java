@@ -26,6 +26,6 @@ public class Main {
         s3.relation(s3, 'A');
 
         // print path
-        Machine.showSteps("BAABBAAB", s0); // sequence and starting node
+        Machine.showSteps("BAAAAA", s0); // sequence and starting node
     }
 }
