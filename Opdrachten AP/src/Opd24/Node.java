@@ -1,11 +1,11 @@
 package Opd24;
 
-import java.util.LinkedHashMap;
+import java.util.HashMap;
 import java.util.Map;
 
 public class Node {
     String name;
-    LinkedHashMap<Character, Node> map = new LinkedHashMap<>();
+    Map<Character, Node> map = new HashMap<>();
 
     public Node(String name) {
         this.name = name;
@@ -21,9 +21,5 @@ public class Node {
 
     public Node getFirstRelation(Character character) {
         return map.get(character);
-    }
-
-    public Map<Character, Node> getMap() {
-        return map;
     }
 }
