@@ -5,14 +5,14 @@ import java.util.Map;
 
 public class Node {
     String name;
-    Map<Character, Node> map = new HashMap<>();
+    Map<Node,Character> map = new HashMap<>();
 
     public Node(String name) {
         this.name = name;
     }
 
     public void relation(Node node, Character relation) {
-        map.put(relation, node);
+        map.put(node, relation);
     }
 
     public String getName() {
@@ -20,6 +20,13 @@ public class Node {
     }
 
     public Node getFirstRelation(Character character) {
-        return map.get(character);
+        Node node = null;
+        for (Map.Entry<Node,Character> entry : map.entrySet()) {
+            if (character.equals(entry.getValue())) {
+                node = entry.getKey();
+                break;
+            }
+        }
+        return node;
     }
 }
