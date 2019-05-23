@@ -5,22 +5,22 @@ import java.util.ArrayList;
 public class Machine {
 
     public static void showSteps(String sequence, Node start){
-        ArrayList<String> output = new ArrayList<String>();
-        Node node = start;
-        output.add(node.getName());
+        ArrayList<String> output = new ArrayList<String>(); // create empty output list for seen nodes
+        Node node = start; // set first starting node
+        output.add(node.getName()); // add first starting node to output
 
         for (int i = 0; i < sequence.length(); i++){
-            Node nextNode = node.getNextNode(sequence.charAt(i));
+            Node nextNode = node.getNextNode(sequence.charAt(i)); // returns node with corresponding char as relation
 
-            if (nextNode == null){
+            if (nextNode == null){ // if no relation is available getNextNode returns null
                 output.add("X");
                 System.out.println("Er is geen relatie naar een volgende node gevonden voor karakter " + sequence.charAt(i));
-                break;
+                break; // stop program if next relation can not be found
             } else {
-                output.add(nextNode.getName());
+                output.add(nextNode.getName()); // add to output list
             }
 
-            node = nextNode;
+            node = nextNode; // set current next node as starting node for next iteration
         }
         System.out.println(output);
 

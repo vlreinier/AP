@@ -5,7 +5,7 @@ import java.util.Map;
 
 public class Node {
     String name;
-    Map<Node,Character> map = new HashMap<>();
+    Map<Node,Character> map = new HashMap<>(); // using python dictionary like structure for saving relations
 
     public Node(String name) {
         this.name = name;
@@ -21,10 +21,10 @@ public class Node {
 
     public Node getNextNode(Character character) {
         for (Map.Entry<Node,Character> entry : map.entrySet()) {
-            if (character.equals(entry.getValue())) {
-                return entry.getKey();
+            if (character.equals(entry.getValue())) { // look for relation with given character
+                return entry.getKey(); // return found node
             }
         }
-        return null;
+        return null; // no relations found returns null
     }
 }
