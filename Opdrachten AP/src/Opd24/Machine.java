@@ -10,17 +10,14 @@ public class Machine {
         output.add(node.getName()); // add first starting node to output
 
         for (int i = 0; i < sequence.length(); i++){
-            Character character = sequence.charAt(i);
-            Node nextNode = node.getNextNode(character); // returns next node with corresponding char as relation
+            Node nextNode = node.getNextNode(sequence.charAt(i)); // returns next node if characters match
 
-            if (nextNode == null){ // if no relation is available getNextNode returns null
+            if (nextNode == null){ // returns null if relation is not present
                 output.add("X");
-                System.out.println("Er is geen relatie naar een volgende node gevonden voor karakter " + character);
-                break; // stop program if next relation can not be found
+                break; // stop program if next relation is not present
             } else {
                 output.add(nextNode.getName()); // add to output list
             }
-
             node = nextNode; // set current next node as starting node for next iteration
         }
 
