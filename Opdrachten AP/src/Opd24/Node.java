@@ -19,14 +19,12 @@ public class Node {
         return name;
     }
 
-    public Node getFirstRelation(Character character) {
-        Node node = null;
+    public Node getNextNode(Character character) {
         for (Map.Entry<Node,Character> entry : map.entrySet()) {
             if (character.equals(entry.getValue())) {
-                node = entry.getKey();
-                break;
+                return entry.getKey();
             }
         }
-        return node;
+        return null;
     }
 }
