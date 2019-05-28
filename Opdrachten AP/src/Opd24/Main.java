@@ -11,21 +11,16 @@ public class Main {
         // set relations between nodes
         s0.relation(s1, 'B');
         s0.relation(s2, 'A');
-        s0.relation(s3, 'B');
 
-        s1.relation(s0, 'B');
-        s1.relation(s2, 'B');
         s1.relation(s1, 'A');
+        s1.relation(s2, 'B');
 
-        s2.relation(s0, 'A');
-        s2.relation(s1, 'B');
         s2.relation(s3, 'B');
 
-        s3.relation(s0, 'B');
-        s3.relation(s2, 'B');
         s3.relation(s3, 'A');
+        s3.relation(s0, 'B');
 
         // print path
-        Machine.showSteps("BAAAAA", s0); // sequence and starting node
+        Machine.showSteps("ABBBBAA", s0); // sequence and starting node
     }
 }

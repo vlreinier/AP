@@ -12,7 +12,7 @@ public class Grid extends Application {
     private static double x0,x1,y0,y1;
     private static double ratio;
 
-    // Ik had na even zoeken deze truck gevonden om de applicatie via een statische functie met argumenten
+    // Ik had na even zoeken deze truc gevonden om de applicatie via een statische functie met argumenten
     // line en ratio op te roepen
     public static void launchGrid(double x0, double y0, double x1, double y1, double ratio){
         Grid.x0 = x0;
