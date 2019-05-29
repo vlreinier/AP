@@ -1,7 +1,7 @@
 package Opd25;
 
 public class Dtmc {
-    public static void showPath(){
+    public static void rollDice(){
         Node node = createDtmc(); // setup dtmc and get starting node
         while (true) {
             Node nextNode = node.getNextNode();
