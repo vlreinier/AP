@@ -3,13 +3,12 @@ package Dijkstra;
 import javafx.util.Pair;
 import java.util.Comparator;
 
-public class CityComparator implements Comparator<Pair<Integer, Integer>> {
+public class CityComparator implements Comparator<Pair<City, Integer>> {
 
-    public int compare(Pair<Integer, Integer> p1, Pair<Integer, Integer> p2) {
+    public int compare(Pair<City, Integer> p1, Pair<City, Integer> p2) {
 
-        //sort using distance values
-        int key1 = p1.getKey();
-        int key2 = p2.getKey();
+        int key1 = p1.getValue();
+        int key2 = p2.getValue();
 
         return key1-key2;
     }

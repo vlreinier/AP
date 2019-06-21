@@ -16,13 +16,13 @@ public class Graph {
         }
     }
 
-    public void addConnection(City source, City destination, int weight) {
+    public void addConnection(City source, City destination, int distance) {
         // add connection source to destination
-        Connection source_destination = new Connection(source, destination, weight);
+        Connection source_destination = new Connection(source, destination, distance);
         adjacencylist[source.id].addFirst(source_destination);
 
         // add connection destination to source
-        Connection destination_source = new Connection(destination, source, weight);
+        Connection destination_source = new Connection(destination, source, distance);
         adjacencylist[destination.id].addFirst(destination_source);
     }
 

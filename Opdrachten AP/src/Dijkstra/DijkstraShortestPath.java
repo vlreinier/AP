@@ -23,61 +23,49 @@ public class DijkstraShortestPath {
         // create empty list for visited cities
         boolean[] visited = new boolean[cities];
         // create empty list for shortest distance from source to every city
-        int [] distance = new int[cities];
+        int [] distances = new int[cities];
         // create comparator to compare city distances
         CityComparator comparator = new CityComparator();
         // create priority queue with pairs of city id and distance (from source)
-        PriorityQueue<Pair<Integer, Integer>> pq = new PriorityQueue(cities, comparator);
+        PriorityQueue<Pair<City, Integer>> pq = new PriorityQueue(cities, comparator);
         // add infinity distances
-        for (int i = 0; i <cities ; i++) {
-            distance[i] = Integer.MAX_VALUE;
+        distances[0] = 0;
+        for (int i = 1; i <cities ; i++) {
+            distances[i] = Integer.MAX_VALUE;
         }
 
-        // add first starting city
-        Pair<Integer, Integer> p0 = new Pair<>(distance[0], 0);
+        // add first starting city pair
+        Pair<City, Integer> p0 = new Pair<>(source, distances[0]);
         pq.offer(p0);
 
 
-        //while priority queue is not empty
         while(!pq.isEmpty()){
-            // get the minimum
-            Pair<Integer, Integer> extractedPair = pq.poll();
 
-            // extracted city
-            Integer extractedCity = extractedPair.getValue();
-            if(!visited[extractedCity]) {
-                visited[extractedCity] = true;
+            Pair<City, Integer> extractedPair = pq.poll();
 
-                // iterate through all the adjacent vertices and update the keys
-                LinkedList<Connection> list = graph.adjacencylist[extractedCity];
+            City extractedCity = extractedPair.getKey();
+            if(!visited[extractedCity.id]) {
+                visited[extractedCity.id] = true;
+
+                LinkedList<Connection> list = graph.adjacencylist[extractedCity.id];
                 for (int i = 0; i < list.size(); i++) {
                     Connection connection = list.get(i);
-                    Integer destination = connection.destination.id;
-                    // only if edge destination is not present in mst
-                    if (!visited[destination]) {
-                        // check if distance needs an update or not
-                        // means check total weight from source to vertex_V is less than
-                        // the current distance value, if yes then update the distance
-                        int newKey =  distance[extractedCity] + connection.distance;
-                        int currentKey = distance[destination];
-                        if(currentKey>newKey){
-                            Pair<Integer, Integer> p = new Pair<>(newKey, destination);
+                    City destination = connection.destination;
+                    if (!visited[destination.id]) {
+                        int newDistance =  distances[extractedCity.id] + connection.distance;
+                        int currentDistance = distances[destination.id];
+                        if(currentDistance>newDistance){
+                            Pair<City, Integer> p = new Pair<>(destination, newDistance);
                             pq.offer(p);
-                            distance[destination] = newKey;
+                            distances[destination.id] = newDistance;
                         }
                     }
                 }
             }
-        }
-        shortestPath(distance, source);
-    }
-
-    public void shortestPath(int[] distance, City sourceVertex){
-        System.out.println("Dijkstra Algorithm: (Adjacency List + Priority Queue)");
-        for (int i = 0; i <cities ; i++) {
-            System.out.println("Source Vertex: " + sourceVertex.name + " to vertex " +   + i +
-                    " distance: " + distance[i]);
+            if (extractedCity.id == destination.id) {
+                System.out.println(distances[destination.id]);
+                break;
+            }
         }
     }
-
 }

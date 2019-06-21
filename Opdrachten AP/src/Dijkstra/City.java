@@ -1,8 +1,8 @@
 package Dijkstra;
 
 public class City {
-    String name;
     int id;
+    String name;
 
     public City(String name, int id) {
         this.id = id;
