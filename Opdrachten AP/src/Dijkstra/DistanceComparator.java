@@ -3,7 +3,7 @@ package Dijkstra;
 import javafx.util.Pair;
 import java.util.Comparator;
 
-public class CityComparator implements Comparator<Pair<City, Integer>> {
+public class DistanceComparator implements Comparator<Pair<City, Integer>> {
 
     public int compare(Pair<City, Integer> p1, Pair<City, Integer> p2) {
 

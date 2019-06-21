@@ -1,28 +1,16 @@
 package DijkstraAlgorithm;
 
-import Dijkstra.DijkstraShortestPath;
-
 import java.util.*;
 
 public class Journey {
-    int destination;
-    double shortestDistance;
-    int[] previous_cities;
-
-    public List<Integer> shortestPath() {
-        List<Integer> path = new ArrayList<>();
-        // reconstruct path from end to start, because we only the best previous cities, not the best next
-        for (Integer current = destination; current == null; current = previous_cities[current]){
-            path.add(current);
-        }
-        // reverse path, so that path starts from source instead of destination
-        Collections.reverse(path);
-        return path;
-    }
+    private int destination, source;
+    private double shortestDistance;
+    private int[] previous_cities;
 
     public Journey(Graph graph, int source, int destination){
-        // save destination as its needed for reconstructing path
+        // save destination and start as its needed for reconstructing path
         this.destination = destination;
+        this.source = source;
 
         // number of cities
         int cities = graph.graph.size();
@@ -34,7 +22,7 @@ public class Journey {
         boolean[] visited_cities = new boolean[cities];
 
         // remember best previous visited cities, so reversed path can be reconstructed later
-        int[] previous_cities = new int[graph.graph.size()];
+        int[] previous_cities = new int[cities];
 
         // no distances are known yet so they could all be infinite (except for source to source, thats 0 off course)
         Arrays.fill(distances_from_source, Double.POSITIVE_INFINITY);
@@ -47,10 +35,10 @@ public class Journey {
         PriorityQueue<City> queue = new PriorityQueue<>(2 * cities, comparator);
         queue.offer(new City(source, 0));
 
-        // run algorithm as long as destination is not reached
+        // run algorithm as long as destination is not reached or queue is not empty
         while (!queue.isEmpty()) {
 
-            // add first city to queue and mark city as visited
+            // get city from queue and mark city as visited
             City city = queue.poll();
             visited_cities[city.id] = true;
 
@@ -71,16 +59,16 @@ public class Journey {
                 }
 
                 // calculate new distance from starting city to current city
-                double newDist = distances_from_source[connection.source] + connection.distance;
+                double bestDistance = distances_from_source[connection.source] + connection.distance;
 
                 // check if new calculated distance from start city is less than current saved distance for this city
-                if (newDist < distances_from_source[connection.destination]) {
+                if (bestDistance < distances_from_source[connection.destination]) {
                     // if so, update best previous city for reconstructing path later
                     previous_cities[connection.destination] = connection.source;
                     // also change best distance from starting city for current city
-                    distances_from_source[connection.destination] = newDist;
+                    distances_from_source[connection.destination] = bestDistance;
                     // update queue with new city from connections from graph
-                    queue.offer(new City(connection.source, distances_from_source[connection.destination]));
+                    queue.offer(new City(connection.destination, distances_from_source[connection.destination]));
                 }
             }
 
@@ -93,11 +81,33 @@ public class Journey {
         // save best previous cities and shortest distance for source to destination journey
         this.previous_cities = previous_cities;
         this.shortestDistance = distances_from_source[destination];
-
+        //for (int i=0;i<previous_cities.length;i++) System.out.println(previous_cities[i]);
     }
 
     public double shortestDistance() {
         return shortestDistance;
+    }
+
+    public List<Integer> shortestPath() {
+        List<Integer> path = new ArrayList<>();
+        // reconstruct path from end to start, because we only know the best previous cities, not the best next
+        if (destination == 0){
+            return path;
+        } else {
+            for (Integer at = destination; at != null; at = previous_cities[at]) {
+                path.add(at);
+                if (at == 0){
+                    break;
+                }
+            }
+        }
+
+        // reverse path, so that path starts from source instead of destination
+        Collections.reverse(path);
+        if (source != 0){
+            path.remove(0);
+        }
+        return path;
     }
 
 }

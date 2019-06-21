@@ -1,6 +1,6 @@
 package Dijkstra;
 
-import java.util.LinkedList;
+import java.util.List;
 
 public class Main {
     public static void main(String[] arg) {
@@ -27,6 +27,6 @@ public class Main {
         DijkstraShortestPath journey = new DijkstraShortestPath(graph, num_cities);
         journey.sourceDestination(soest, berlijn);
         journey.shortestDistance();
-        //ArrayList<String> path = journey.shortestPath();
+        //List<Integer> path = journey.shortestPath();
     }
 }
