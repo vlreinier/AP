@@ -1,4 +1,4 @@
-package Dijkstra;
+package DijkstraManualCitiesOLD;
 
 public class City {
     int id;

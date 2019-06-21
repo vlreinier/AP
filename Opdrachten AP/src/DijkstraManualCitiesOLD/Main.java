@@ -1,6 +1,4 @@
-package Dijkstra;
-
-import java.util.List;
+package DijkstraManualCitiesOLD;
 
 public class Main {
     public static void main(String[] arg) {

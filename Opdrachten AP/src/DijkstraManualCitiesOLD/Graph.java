@@ -1,4 +1,4 @@
-package Dijkstra;
+package DijkstraManualCitiesOLD;
 
 import java.util.LinkedList;
 

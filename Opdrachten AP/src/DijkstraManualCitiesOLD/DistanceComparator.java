@@ -1,4 +1,4 @@
-package Dijkstra;
+package DijkstraManualCitiesOLD;
 
 import javafx.util.Pair;
 import java.util.Comparator;
