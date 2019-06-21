@@ -26,7 +26,7 @@ public class Node {
             return null;
         }
         else {
-            // because all relations have the same value 0.5, i just randomly pick one Node
+            // because all relations have the same value 0.5, i just randomly pick one City
             Random random = new Random();
             int index = random.nextInt(map.size());
             ArrayList<Node> nodes = new ArrayList<>();

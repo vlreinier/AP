@@ -1,0 +1,32 @@
+package Dijkstra;
+
+import java.util.LinkedList;
+
+public class Main {
+    public static void main(String[] arg) {
+        // create cities (nodes)
+        City soest = new City("soest", 0);
+        City utrecht = new City("utrecht", 1);
+        City amsterdam = new City("amsterdam", 2);
+        City brussel = new City("brussel", 3);
+        City berlijn = new City("berlijn", 4);
+
+        // create graph
+        int num_cities = 5;
+        Graph graph = new Graph(num_cities);
+
+        // establish connections between cities with distance in between and add to graph
+        graph.addConnection(soest, utrecht, 10);
+        graph.addConnection(utrecht, amsterdam, 10);
+        graph.addConnection(utrecht, berlijn, 25);
+        graph.addConnection(amsterdam, berlijn, 30);
+        graph.addConnection(amsterdam, brussel, 5);
+        graph.addConnection(brussel, berlijn, 5);
+
+        // calculate shortest path from city start to city end
+        DijkstraShortestPath journey = new DijkstraShortestPath(graph, num_cities);
+        journey.sourceDestination(soest, berlijn);
+        journey.shortestDistance();
+        //ArrayList<String> path = journey.shortestPath();
+    }
+}
