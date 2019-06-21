@@ -37,24 +37,25 @@ public class DijkstraShortestPath {
         Pair<City, Integer> p0 = new Pair<>(source, distances_from_source[0]);
         queue.offer(p0);
 
-
         while(!queue.isEmpty()){
 
             Pair<City, Integer> extractedPair = queue.poll();
-
-
             City extractedCity = extractedPair.getKey();
+
             if(!visited_cities[extractedCity.id]) {
                 visited_cities[extractedCity.id] = true;
 
                 LinkedList<Connection> list = graph.adjacencylist[extractedCity.id];
                 for (int i = 0; i < list.size(); i++) {
+
                     Connection connection = list.get(i);
                     City destination = connection.destination;
+
                     if (!visited_cities[destination.id]) {
+
                         int bestDistance =  distances_from_source[extractedCity.id] + connection.distance;
-                        int currentDistance = distances_from_source[destination.id];
-                        if(currentDistance>bestDistance){
+
+                        if(distances_from_source[destination.id] > bestDistance){
                             Pair<City, Integer> p = new Pair<>(destination, bestDistance);
                             queue.offer(p);
                             distances_from_source[destination.id] = bestDistance;

@@ -67,7 +67,7 @@ public class Journey {
                     previous_cities[connection.destination] = connection.source;
                     // also change best distance from starting city for current city
                     distances_from_source[connection.destination] = bestDistance;
-                    // update queue with new city from connections from graph
+                    // update queue with new city from connections from graph if destination is not reached
                     queue.offer(new City(connection.destination, distances_from_source[connection.destination]));
                 }
             }
