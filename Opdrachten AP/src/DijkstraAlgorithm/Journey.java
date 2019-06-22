@@ -90,23 +90,16 @@ public class Journey {
 
     public List<Integer> shortestPath() {
         List<Integer> path = new ArrayList<>();
-        // reconstruct path from end to start, because we only know the best previous cities, not the best next
-        if (destination == 0){
-            return path;
-        } else {
-            for (Integer at = destination; at != null; at = previous_cities[at]) {
-                path.add(at);
-                if (at == 0){
-                    break;
-                }
-            }
+
+        // reverse construct path, starting from destination (last index of previous_cities)
+        path.add(destination);
+        for (int i = destination;i < previous_cities.length; i--) {
+            path.add(previous_cities[i]);
+            if (previous_cities[i] == source) break;
         }
 
         // reverse path, so that path starts from source instead of destination
         Collections.reverse(path);
-        if (source != 0){
-            path.remove(0);
-        }
         return path;
     }
 

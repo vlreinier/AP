@@ -17,14 +17,14 @@ public class Main {
         Graph graph = new Graph(cities);
 
         // add connections to graph (from id, destination id, distance)
-        graph.addConnection(soest, amsterdam, 2);
-        graph.addConnection(amsterdam, utrecht, 2);
-        graph.addConnection(utrecht, denhaag, 1);
-        graph.addConnection(soest, denhaag, 7);
-        graph.addConnection(amsterdam, denhaag, 4);
+        graph.addConnection(soest, utrecht, 1);
+        graph.addConnection(soest, amsterdam, 1);
+        graph.addConnection(utrecht, amsterdam, 1);
+        graph.addConnection(utrecht, denhaag, 3);
+        graph.addConnection(amsterdam, denhaag, 1);
 
         // create new journey (graph with connections, source, destination)
-        Journey my_first_journey = new Journey(graph, amsterdam, denhaag);
+        Journey my_first_journey = new Journey(graph, utrecht, denhaag);
 
         // get shortest distance and belonging shortest path
         double shortestDistance = my_first_journey.shortestDistance();
