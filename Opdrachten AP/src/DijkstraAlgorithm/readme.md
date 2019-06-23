@@ -17,3 +17,5 @@ Ik was eerst begonnen met handmatig steden aan te maken in de main class, tot ik
 automatisch aan de hand van de gegeven stadsconnecties aangemaakt konden worden. Daarom heb ik 2 packages. 
 Package DijkstraAlgorithm is de definitieve uitwerking waar ik op verder gegaan ben, DijkstraManualCitiesOlD is de 
 oudere variant.
+
+(geen dependencies vereist voor package DijkstraAlgorithm. klassen, functies en variabelen zijn package-private)

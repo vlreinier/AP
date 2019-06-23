@@ -2,29 +2,28 @@ package DijkstraAlgorithm;
 
 import java.util.*;
 
-public class Journey {
+class Journey {
     private int destination, source;
-    private double shortestDistance;
     private int[] previous_cities;
-    ConnectionsGraph connectionsGraph;
+    private ConnectionsGraph connectionsGraph;
 
     /**
-     * @param connectionsGraph
-     * @param source
-     * @param destination
+     * @param connectionsGraph graph for saving connections between cities
+     * @param source // starting point journey
+     * @param destination // end point journey
      *
      * class calculates shortest distance for given source to destination using priority queue
      * also reconstructs path from destination to source (reversed) continuously getting best previous city
      *
      */
 
-    public Journey(ConnectionsGraph connectionsGraph, int source, int destination) {
+    Journey(ConnectionsGraph connectionsGraph, int source, int destination) {
         this.connectionsGraph = connectionsGraph;
         this.destination = destination;
         this.source = source;
     }
 
-    public void dijkstraShortestPath(){
+    double dijkstraShortestPath(){
         // number of cities
         int cities = connectionsGraph.graph.size();
 
@@ -95,17 +94,15 @@ public class Journey {
             }
         }
 
-        // save best previous cities and shortest distance for source to destination journey
+        // save best previous cities for source to destination journey
         // needed for reconstructing path and returning best distance
         this.previous_cities = previous_cities;
-        this.shortestDistance = distances_from_source[destination];
+
+        // return shortest distance for given source to destination
+        return distances_from_source[destination];
     }
 
-    public double shortestDistance() {
-        return shortestDistance;
-    }
-
-    public List<Integer> shortestPath() {
+    List<Integer> shortestPath() {
         List<Integer> path = new ArrayList<>();
 
         // reverse construct path, starting from destination (last index of previous_cities)

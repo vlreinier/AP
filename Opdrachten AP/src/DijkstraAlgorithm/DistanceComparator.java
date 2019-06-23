@@ -2,7 +2,7 @@ package DijkstraAlgorithm;
 
 import java.util.Comparator;
 
-public class DistanceComparator implements Comparator<City> {
+class DistanceComparator implements Comparator<City> {
 
     /**
      * @param city1
