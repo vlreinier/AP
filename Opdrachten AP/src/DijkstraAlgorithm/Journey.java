@@ -6,14 +6,27 @@ public class Journey {
     private int destination, source;
     private double shortestDistance;
     private int[] previous_cities;
+    ConnectionsGraph connectionsGraph;
 
-    public Journey(Graph graph, int source, int destination){
-        // save destination and start as its needed for reconstructing path
+    /**
+     * @param connectionsGraph
+     * @param source
+     * @param destination
+     *
+     * class calculates shortest distance for given source to destination using priority queue
+     * also reconstructs path from destination to source (reversed) continuously getting best previous city
+     *
+     */
+
+    public Journey(ConnectionsGraph connectionsGraph, int source, int destination) {
+        this.connectionsGraph = connectionsGraph;
         this.destination = destination;
         this.source = source;
+    }
 
+    public void dijkstraShortestPath(){
         // number of cities
-        int cities = graph.graph.size();
+        int cities = connectionsGraph.graph.size();
 
         // create list with best distances from source where index == city id
         double[] distances_from_source = new double[cities];
@@ -24,7 +37,7 @@ public class Journey {
         // remember best previous visited cities, so reversed path can be reconstructed later
         int[] previous_cities = new int[cities];
 
-        // no distances are known yet so they could all be infinite (except for source to source, thats 0 off course)
+        // no distances are known yet so they could all be infinite (except for source to source, that is 0 off course)
         Arrays.fill(distances_from_source, Double.POSITIVE_INFINITY);
         distances_from_source[source] = 0;
 
@@ -38,37 +51,41 @@ public class Journey {
         // run algorithm as long as destination is not reached or queue is not empty
         while (!queue.isEmpty()) {
 
-            // get city from queue and mark city as visited
+            // get city with lowest distance value from queue
             City city = queue.poll();
+
+            // mark city as visited (dont wanna visit twice)
             visited_cities[city.id] = true;
 
-            // if already calculated distance is shorter continue
+            // if already calculated distance is shorter than currently saved distance, break iteration and continue
             if (distances_from_source[city.id] < city.distance_from_source) {
                 continue;
             }
 
-            // get city connections
-            List<Connection> connections = graph.graph.get(city.id);
+            // get city cityConnections for current city
+            List<CityConnection> cityConnections = connectionsGraph.graph.get(city.id);
 
-            for (int i = 0; i < connections.size(); i++) {
-                Connection connection = connections.get(i);
+            // iterate over city connections
+            for (int i = 0; i < cityConnections.size(); i++) {
+                CityConnection cityConnection = cityConnections.get(i);
 
-                // if city is already visited, continue
-                if (visited_cities[connection.destination]) {
+                // if city connection is already visited, break from current iteration and continue
+                if (visited_cities[cityConnection.destination]) {
                     continue;
                 }
 
                 // calculate new distance from starting city to current city
-                double bestDistance = distances_from_source[connection.source] + connection.distance;
+                double bestDistance = distances_from_source[cityConnection.source] + cityConnection.distance;
 
                 // check if new calculated distance from start city is less than current saved distance for this city
-                if (bestDistance < distances_from_source[connection.destination]) {
+                if (bestDistance < distances_from_source[cityConnection.destination]) {
                     // if so, update best previous city for reconstructing path later
-                    previous_cities[connection.destination] = connection.source;
+                    previous_cities[cityConnection.destination] = cityConnection.source;
                     // also change best distance from starting city for current city
-                    distances_from_source[connection.destination] = bestDistance;
-                    // update queue with new city from connections from graph if destination is not reached
-                    queue.offer(new City(connection.destination, distances_from_source[connection.destination]));
+                    distances_from_source[cityConnection.destination] = bestDistance;
+                    // update queue with new city from cityConnections from connectionsGraph if destination is not reached
+                    // in package DijkstraManualCitiesOLD cities are constructed before staring journey, this saves some code
+                    queue.offer(new City(cityConnection.destination, distances_from_source[cityConnection.destination]));
                 }
             }
 
@@ -79,9 +96,9 @@ public class Journey {
         }
 
         // save best previous cities and shortest distance for source to destination journey
+        // needed for reconstructing path and returning best distance
         this.previous_cities = previous_cities;
         this.shortestDistance = distances_from_source[destination];
-        //for (int i=0;i<previous_cities.length;i++) System.out.println(previous_cities[i]);
     }
 
     public double shortestDistance() {
@@ -92,6 +109,7 @@ public class Journey {
         List<Integer> path = new ArrayList<>();
 
         // reverse construct path, starting from destination (last index of previous_cities)
+        // constructing path by adding best previous city to path until source is reached
         path.add(destination);
         for (int i = destination;i < previous_cities.length; i--) {
             path.add(previous_cities[i]);

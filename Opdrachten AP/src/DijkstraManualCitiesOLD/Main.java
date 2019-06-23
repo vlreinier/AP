@@ -1,6 +1,20 @@
 package DijkstraManualCitiesOLD;
 
 public class Main {
+
+    /**
+     * @param arg
+     *
+     * OLD version of Dijkstra Shortest Path where cities are manually created
+     * new version is package DijkstraAlgorithm
+     *
+     * algorithm works but not added:
+     * returning reconstructed path from source to destination
+     * returning shortest distance
+     *
+     */
+
+
     public static void main(String[] arg) {
         // create cities (nodes)
         City soest = new City("soest", 0);
